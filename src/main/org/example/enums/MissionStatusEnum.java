@@ -1,4 +1,4 @@
-package java.org.example.enums;
+package org.example.enums;
 
 public enum MissionStatusEnum {
   SCHEDULED("Scheduled"),

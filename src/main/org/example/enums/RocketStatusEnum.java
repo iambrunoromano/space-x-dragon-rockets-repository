@@ -1,4 +1,4 @@
-package java.org.example.enums;
+package org.example.enums;
 
 public enum RocketStatusEnum {
   ON_GROUND("On Ground"),

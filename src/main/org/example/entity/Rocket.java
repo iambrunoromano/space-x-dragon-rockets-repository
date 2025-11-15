@@ -1,6 +1,6 @@
-package java.org.example.entity;
+package org.example.entity;
 
-import java.org.example.enums.RocketStatusEnum;
+import org.example.enums.RocketStatusEnum;
 
 public class Rocket {
   private RocketStatusEnum rocketStatusEnum;

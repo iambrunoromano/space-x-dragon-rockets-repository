@@ -1,6 +1,6 @@
-package java.org.example.entity;
+package org.example.entity;
 
-import java.org.example.enums.MissionStatusEnum;
+import org.example.enums.MissionStatusEnum;
 import java.util.ArrayList;
 import java.util.List;
 

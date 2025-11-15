@@ -2,6 +2,7 @@ package org.example.entity;
 
 import org.example.enums.MissionStatusEnum;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Mission {
@@ -22,10 +23,22 @@ public class Mission {
   }
 
   public List<Rocket> getRockets() {
-    return this.rocketList;
+    return Collections.unmodifiableList(this.rocketList); // Gemini suggested this
   }
 
   public void setRockets(List<Rocket> rocketList) {
-    this.rocketList = rocketList;
+    // Gemini suggested this
+    if (rocketList != null) {
+      this.rocketList = new ArrayList<>(rocketList);
+    } else {
+      this.rocketList = new ArrayList<>();
+    }
+  }
+
+  public void addRockets(List<Rocket> rocketList) {
+    // Gemini suggested this
+    if (rocketList != null && !rocketList.isEmpty()) {
+      this.rocketList.addAll(rocketList);
+    }
   }
 }

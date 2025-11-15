@@ -30,14 +30,12 @@ public class DragonRocketsRepository {
     if (rocketCopy != null && missionCopy != null) {
       rocketCopy.setMission(missionCopy);
       rocketCopy.setRocketStatusEnum(RocketStatusEnum.IN_SPACE);
-      List<Rocket> missionCopyRockets = missionCopy.getRockets();
-      missionCopyRockets.add(rocket);
+      missionCopy.addRockets(List.of(rocket)); // Fixed by Gemini telling my the field was immutable
       if (RocketStatusEnum.IN_REPAIR.equals(rocket.getRocketStatusEnum())) {
         missionCopy.setMissionStatusEnum(MissionStatusEnum.PENDING);
       } else {
         missionCopy.setMissionStatusEnum(MissionStatusEnum.IN_PROGRESS);
       }
-      missionCopy.setRockets(missionCopyRockets);
       rockets.put(rocket.hashCode(), rocketCopy);
       missions.put(missionCopy.hashCode(), missionCopy);
       mission = missionCopy;
@@ -90,9 +88,7 @@ public class DragonRocketsRepository {
     }
     Mission missionCopy = missions.get(mission.hashCode());
     if (missionCopy != null) {
-      List<Rocket> missionCopyRockets = missionCopy.getRockets();
-      missionCopyRockets.addAll(rocketList);
-      missionCopy.setRockets(missionCopyRockets);
+      missionCopy.addRockets(rocketList);
       if (rocketInRepair) {
         missionCopy.setMissionStatusEnum(MissionStatusEnum.PENDING);
       } else {

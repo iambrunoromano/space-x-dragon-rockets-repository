@@ -33,7 +33,41 @@ public class DragonRocketsRepositoryTest {
     Rocket actualRocket =
         rocket; // Rocket should have been edited in mission reference by assignRocketToMission
     assertOrThrow(actualRocket.getMission(), actualMission, "Assign Rocket to Mission");
-    assertOrThrow(actualMission.getRockets(), List.of(actualRocket), "Assign Rocket to Mission");
+    assertOrThrow(
+        actualRocket.getRocketStatusEnum(), RocketStatusEnum.IN_SPACE, "Assign Rocket to Mission");
+    assertOrThrow(actualMission.getRockets().get(0), actualRocket, "Assign Rocket to Mission");
+    assertOrThrow(
+        actualMission.getMissionStatusEnum(),
+        MissionStatusEnum.IN_PROGRESS,
+        "Assign Rocket to Mission");
+    // TODO: test mission status change?
+  }
+
+  public static void assignRocketToMissionTest_GoodRocket_GoodMission_Rocketsinplace()
+      throws Exception {
+    Rocket rocket =
+        DragonRocketsRepository
+            .addNewRocket(); // In this case if the test for addNewRocket() fails, the current test
+    // will not be executed
+    Mission mission =
+        DragonRocketsRepository
+            .addNewMission(); // In this case if the test for addNewRocket() fails, the current test
+    // will not be executed
+    Rocket anotherPreexhistentRocket = DragonRocketsRepository.addNewRocket();
+    mission.setRockets(
+        List.of(anotherPreexhistentRocket)); // THE mission now already possesses a rocket
+    Mission actualMission = DragonRocketsRepository.assignRocketToMission(rocket, mission);
+    Rocket actualRocket =
+        rocket; // Rocket should have been edited in mission reference by assignRocketToMission
+    assertOrThrow(actualRocket.getMission(), actualMission, "Assign Rocket to Mission");
+    assertOrThrow(
+        actualRocket.getRocketStatusEnum(), RocketStatusEnum.IN_SPACE, "Assign Rocket to Mission");
+    assertOrThrow(actualMission.getRockets().get(0), anotherPreexhistentRocket, "Assign Rocket to Mission");
+    assertOrThrow(actualMission.getRockets().get(1), actualRocket, "Assign Rocket to Mission");
+    assertOrThrow(
+        actualMission.getMissionStatusEnum(),
+        MissionStatusEnum.IN_PROGRESS,
+        "Assign Rocket to Mission");
     // TODO: test case with mission with multiple rockets already in place
     // TODO: test mission status change?
   }

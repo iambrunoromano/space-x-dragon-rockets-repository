@@ -4,14 +4,13 @@ This project provides an implementation of the SpaceX Dragon Rockets repository 
 
 ### Assumptions
 
-1. I assume that the addNewX methods return the created object to the caller. The alternative would be to create the
-   object, Rocket or Mission, and hold it internally returning only the id of that. This way of operating, which I
-   usually use when handling complex big objects via API call, feels to me overengineering here because I should then
-   implement:
-    - a way to search for rockets, ideally an id in an hashmap
-    - hold the collection of used ids somewhere to issue new ones withotu overriding the old ones
-    - [most importantly] tests that inpsect the *internal* collections of rockets and missions of the
-      DragonRocketsRepository, making therefore the hiding worthless
+1. I started by assuming that all methods for creating and assigning resources return the created/edited object to the
+   caller. That
+   said, the getSummary() method requested needs the repo to keep an internal inventory of all the rockets and missions
+   issued or assigned. Since my
+   first idea for holding the objects internally would need to have ids, but I thnk there is no time for that, I would
+   both give back the objects to the caller and hold an internal copy of everything in a structured manner. In such a
+   way I could avoid spending time on ids handing while being able to provide a getSummary() functionality.
 2. Coming to TDD and structuring the tests, since time is my main resource here, I don't use any library. I think it is
    not really needed here and the tests are simple methods that can bee called and either pass or throw and exception
    with a message explaining the difference between the actual and expected value. I throw an exception instead of

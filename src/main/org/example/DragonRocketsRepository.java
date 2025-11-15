@@ -56,7 +56,9 @@ public class DragonRocketsRepository {
     }
     if (RocketStatusEnum.IN_REPAIR.equals(rocketStatusEnum)) {
       if (rocket.getMission() == null
-          | !MissionStatusEnum.PENDING.equals(rocket.getMission().getMissionStatusEnum())) {
+          || !MissionStatusEnum.PENDING.equals(rocket.getMission().getMissionStatusEnum())) {
+        // TODO: question: which one of the rocket in repair or mission pending statuses should be
+        // set first? Currently one prevents the other. With more time I would ask this question and clarify the edge case.
         throw new Exception("You can't set rocket status to repair if mission is not in pending");
       }
     }
